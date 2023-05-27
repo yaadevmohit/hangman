@@ -46,8 +46,9 @@ function App() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase()
-      if(key !== "return") return
+      if(key !== "enter") return
       e.preventDefault()
+      setGuessedLetters([])
       setWordToGuess(getWord())
     }
     document.addEventListener("keypress", handler)
