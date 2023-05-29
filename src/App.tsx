@@ -7,6 +7,7 @@ import Keyboard from './Keyboard'
 function getWord() {
   return words[Math.floor(Math.random() * words.length)]
 }
+// use arrow functions
 function App() {
   const [wordToGuess, setWordToGuess] = useState(getWord)
   const [guessedLetters, setGuessedLetters] = useState<string[]>([])
@@ -15,28 +16,25 @@ function App() {
     letter => !wordToGuess.includes(letter)
   )
 
-  const isLoser = incorrectLetters.length >= 4
+  const isLoser = incorrectLetters.length >= 5
   const isWinner = wordToGuess.split("").every(letter => guessedLetters.includes(letter))
 
-  const addGuessedLetter = useCallback((letter:string) => {
+  const addGuessedLetter = (letter:string) => {
+    console.log("function ran")
     if (guessedLetters.includes(letter) || isLoser || isWinner) return
 
     setGuessedLetters(currentLetters => [...currentLetters, letter])
-  },
-  [guessedLetters, isLoser, isWinner]
-  )
+  }
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase()
       if (!key.match(/^[a-z]$/)) return
-
       e.preventDefault()
       addGuessedLetter(key)
-
     }
     document.addEventListener("keypress", handler)
-
+// event listener still active
     return () => {
       document.removeEventListener("keypress", handler)
     }
@@ -51,13 +49,15 @@ function App() {
       setGuessedLetters([])
       setWordToGuess(getWord())
     }
-    document.addEventListener("keypress", handler)
-
+    if (isLoser || isWinner) {
+      document.addEventListener("keypress", handler)
+    }
     return () => {
       document.removeEventListener("keypress", handler)
     }
-  }, [])
-
+  }, [isWinner, isLoser])
+// use gap
+// use styled component
   return(
     <div style={{
       maxWidth: "800px",

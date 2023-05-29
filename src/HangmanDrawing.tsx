@@ -86,14 +86,15 @@ const RIGHT_LEG = (<div
         }}
 />)
 
-const BODY_PARTS = [[HEAD, NECK,], BODY, [RIGHT_ARM, LEFT_ARM], [LEFT_LEG, RIGHT_LEG] ]
-
+const BODY_PARTS = [[HEAD, NECK], BODY, [RIGHT_ARM, LEFT_ARM], LEFT_LEG, RIGHT_LEG ]
+// interface use instead type
 type HangmanDrawingProps = {
     numberOfGuesses: number
 }
 
 export default function HangmanDrawing({numberOfGuesses}: HangmanDrawingProps): JSX.Element {
     return (
+        // use without absolute 
         <>
         <div style={{position: "relative"}}>
         {BODY_PARTS.slice(0, numberOfGuesses)}

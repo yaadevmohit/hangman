@@ -16,6 +16,8 @@ export default function HangmanWord( {guessedLetters, wordToGuess, reveal=false}
                 }}
             >
                 {wordToGuess.split("").map((letter,index) => (
+// use a variable to hide the word
+// improve readability                    
                     <span style= {{borderBottom: ".1em solid black"}} key={index}>
                         <span
                             style={{
