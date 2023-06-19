@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import words from "./wordList.json"
 import HangmanDrawing from "./HangmanDrawing"
 import HangmanWord from "./HangmanWord"
@@ -49,6 +49,10 @@ function App() {
       setGuessedLetters([])
       setWordToGuess(getWord())
     }
+    // randomly adding two letters from wordToGuess to guessedLetters
+      addGuessedLetter(wordToGuess[Math.floor(Math.random() * wordToGuess.length)])
+      addGuessedLetter(wordToGuess[Math.floor(Math.random() * wordToGuess.length)])
+
     if (isLoser || isWinner) {
       document.addEventListener("keypress", handler)
     }
@@ -67,7 +71,7 @@ function App() {
       margin: "0 auto",
       alignItems: "center"
     }}>
-      <div style= {{fontSize: "2rem", textAlign: "center"}}>{isLoser ? "You lost! Refresh to try again." : isWinner ? "You won! Refresh to play again" : "Hangman: game in progess.."}</div>
+      <div style= {{fontSize: "2rem", textAlign: "center"}}>{isLoser ? "You lost! Press enter to try again." : isWinner ? "You won! Press enter to play again" : "Hangman: game in progess.."}</div>
       <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
       <HangmanWord 
       reveal={isLoser}
